@@ -1,4 +1,8 @@
 {
+    "common": {
+        "logo": "PosturaIA",
+        "loading": "Loading..."
+    },
     "nav": {
         "home": "Home",
         "dashboard": "Dashboard",
@@ -11,34 +15,74 @@
         "legal_privacy": "Privacy Policy",
         "legal_about": "About Us"
     },
+    "home": {
+        "subtitle": "Excellence in postural analysis through clinical artificial intelligence.",
+        "cta": "Start my free assessment",
+        "feature_auth": "Clinical Engine",
+        "feature_auth_desc": "Precise biomechanical analyses based on validated clinical models.",
+        "feature_privacy": "GDPR Security",
+        "feature_privacy_desc": "Your health data is encrypted and treated with the highest level of confidentiality.",
+        "feature_multi": "Multi-device",
+        "feature_multi_desc": "Access your assessments anywhere, on mobile, tablet or computer.",
+        "welcome_back": "Nice to see you back,"
+    },
     "footer": {
         "desc": "Excellence in postural analysis through clinical artificial intelligence.",
         "nav_title": "Navigation",
         "legal_title": "Legal",
         "contact_title": "Contact",
-        "copy": "&copy; 2026 PosturaIA. All rights reserved. Decision support tool."
+        "copy": "&copy; 2026 PosturaIA. All rights reserved. Decision support tool - Does not replace a medical diagnosis."
     },
     "auth": {
-        "login_title": "Login to your space",
-        "signup_title": "Create a clinical account",
-        "email_label": "Email Address",
-        "pass_label": "Password",
+        "login_title": "Login",
+        "signup_title": "Sign Up",
+        "email_placeholder": "Email",
+        "pass_placeholder": "Password",
+        "login_btn": "Login",
+        "signup_btn": "Sign Up",
         "google_btn": "Continue with Google",
-        "forgot_pass": "Forgot password?",
-        "no_account": "No account yet?",
-        "has_account": "Already registered?"
+        "no_account": "No account?",
+        "has_account": "Already have an account?",
+        "divider": "or"
     },
     "dashboard": {
-        "welcome": "Welcome to your dashboard",
-        "empty_state": "No analysis performed yet.",
-        "start_btn": "Start my first assessment",
-        "history_title": "Analysis History"
+        "title": "My Analyses",
+        "new_btn": "New Analysis",
+        "empty_state": "You have no analysis yet.",
+        "start_here": "Start here",
+        "score": "Score",
+        "view": "View"
     },
     "analysis": {
-        "intake_title": "Preliminary Questionnaire",
-        "consent_check": "I certify that I have read the medical warning.",
-        "start_capture": "Start capture",
-        "processing": "Biomechanical analysis in progress...",
-        "results_title": "Your Postural Assessment"
+        "intake_title": "Analysis Questionnaire",
+        "warning_title": "Warning:",
+        "warning_text": "PosturaIA is an AI-based decision support tool. It does not replace professional medical diagnosis.",
+        "consent_check": "I understand and accept the terms of use.",
+        "pains_label": "Where do you feel pain?",
+        "pains_placeholder": "Ex: Neck, lower back...",
+        "goal_label": "What is your goal?",
+        "goal_correction": "Postural correction",
+        "goal_pain": "Pain reduction",
+        "goal_performance": "Sports performance",
+        "submit_btn": "Continue to capture",
+        "capture_title": "Posture Capture",
+        "camera_sim": "Camera simulator",
+        "start_btn": "Start analysis",
+        "processing_title": "Analysis in progress...",
+        "processing_desc": "Our Lulu agents are examining your posture.",
+        "results_title": "Your Analysis Results",
+        "score_global": "Global Score",
+        "constats": "Findings:",
+        "recommandations": "Recommendations:",
+        "plan_action": "Action Plan (14 days):",
+        "resume": "Final Summary:",
+        "export_pdf": "Export as PDF",
+        "back_dashboard": "Back to Dashboard"
+    },
+    "blog": {
+        "title": "PosturaIA Blog",
+        "loading": "Loading articles...",
+        "empty": "No articles available at the moment.",
+        "read_more": "Read more"
     }
 }

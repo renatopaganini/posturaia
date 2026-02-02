@@ -2,49 +2,57 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Questionnaire - PosturaIA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="analysis.intake_title">Questionnaire - PosturaIA</title>
     <link rel="stylesheet" href="assets/css/theme.css">
 </head>
 <body>
     <header id="main-header"></header>
-    <main style="max-width: 600px; margin: 2rem auto; padding: 1rem;">
-        <h1>Questionnaire d'Analyse</h1>
-        <div id="consent-box" style="background: #fff8e1; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #ffe082;">
-            <p style="font-size: 0.9rem; margin-bottom: 1rem;">
-                <strong>Avertissement :</strong> PosturaIA est un outil d'aide à la décision basé sur l'IA. Il ne remplace en aucun cas un diagnostic médical professionnel.
+    
+    <main style="max-width: 700px; margin: 3rem auto; padding: 0 1.5rem;">
+        <h1 data-i18n="analysis.intake_title" style="color: var(--primary); margin-bottom: 2rem; text-align: center;">Questionnaire d'Analyse</h1>
+        
+        <div class="card" style="background: #fffbeb; border-color: #fef3c7; margin-bottom: 2.5rem;">
+            <p style="font-size: 0.95rem; margin-bottom: 1.25rem; color: #92400e; line-height: 1.5;">
+                <strong data-i18n="analysis.warning_title">Avertissement :</strong> <span data-i18n="analysis.warning_text">PosturaIA est un outil d'aide à la décision basé sur l'IA. Il ne remplace en aucun cas un diagnostic médical professionnel.</span>
             </p>
-            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                <input type="checkbox" id="consent-check"> J'ai compris et j'accepte les conditions d'utilisation.
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; font-weight: 500; color: #92400e;">
+                <input type="checkbox" id="consent-check" style="width: auto; margin: 0;"> <span data-i18n="analysis.consent_check">J'ai compris et j'accepte les conditions d'utilisation.</span>
             </label>
         </div>
 
-        <form id="intake-form">
-            <label>Où ressentez-vous des douleurs ?</label><br>
-            <textarea id="pains" style="width: 100%; height: 100px; margin-top: 5px;" placeholder="Ex: Nuque, bas du dos..."></textarea><br><br>
-            <label>Quel est votre objectif ?</label><br>
-            <select id="goal" style="width: 100%; padding: 10px; margin-top: 5px;">
-                <option value="correction">Correction posturale</option>
-                <option value="douleur">Réduction des douleurs</option>
-                <option value="performance">Performance sportive</option>
-            </select><br><br>
-            <button type="submit" id="submit-btn" disabled style="width: 100%; padding: 15px; background: #ccc; color: white; border: none; cursor: not-allowed;">Continuer vers la capture</button>
+        <form id="intake-form" class="card">
+            <div style="margin-bottom: 1.5rem;">
+                <label data-i18n="analysis.pains_label" style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Où ressentez-vous des douleurs ?</label>
+                <textarea id="pains" data-i18n-placeholder="analysis.pains_placeholder" style="height: 120px;" placeholder="Ex: Nuque, bas du dos..."></textarea>
+            </div>
+            
+            <div style="margin-bottom: 2.5rem;">
+                <label data-i18n="analysis.goal_label" style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Quel est votre objectif ?</label>
+                <select id="goal">
+                    <option value="correction" data-i18n="analysis.goal_correction">Correction posturale</option>
+                    <option value="douleur" data-i18n="analysis.goal_pain">Réduction des douleurs</option>
+                    <option value="performance" data-i18n="analysis.goal_performance">Performance sportive</option>
+                </select>
+            </div>
+            
+            <button type="submit" id="submit-btn" disabled style="opacity: 0.5; cursor: not-allowed; padding: 1.25rem;" data-i18n="analysis.submit_btn">Continuer vers la capture</button>
         </form>
     </main>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
         import "./assets/js/ui-orchestrator.js";
         import { auth } from './assets/js/auth-manager.js';
-        
 
         await auth.checkAuth();
-        
         
         const consentCheck = document.getElementById('consent-check');
         const submitBtn = document.getElementById('submit-btn');
 
         consentCheck.addEventListener('change', () => {
             submitBtn.disabled = !consentCheck.checked;
-            submitBtn.style.background = consentCheck.checked ? '#00a896' : '#ccc';
+            submitBtn.style.opacity = consentCheck.checked ? '1' : '0.5';
             submitBtn.style.cursor = consentCheck.checked ? 'pointer' : 'not-allowed';
         });
 
@@ -58,6 +66,20 @@
             localStorage.setItem('posturaia_intake', JSON.stringify(data));
             window.location.href = 'capture.html';
         });
+
+        const translatePlaceholders = async () => {
+            const lang = localStorage.getItem('posturaia_lang') || 'fr';
+            const response = await fetch(`i18n/${lang}.json`);
+            const t = await response.json();
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                const keys = key.split('.');
+                let text = t;
+                keys.forEach(k => text = text ? text[k] : null);
+                if (text) el.placeholder = text;
+            });
+        };
+        setTimeout(translatePlaceholders, 500);
     </script>
 </body>
 </html>

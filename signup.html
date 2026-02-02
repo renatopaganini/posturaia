@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - PosturaIA</title>
+    <title data-i18n="auth.signup_title">Inscription - PosturaIA</title>
     <link rel="stylesheet" href="assets/css/theme.css">
 </head>
 <body>
     <header id="main-header"></header>
 
-    <div class="auth-card" style="max-width: 400px; margin: 5rem auto; padding: 2rem; border: 1px solid #eee; border-radius: 10px;">
-        <h1>Inscription</h1>
+    <div class="auth-card">
+        <h1 data-i18n="auth.signup_title">Inscription</h1>
         <form id="signup-form">
-            <input type="email" id="email" placeholder="Email" required style="width: 100%; margin-bottom: 1rem; padding: 10px;">
-            <input type="password" id="password" placeholder="Mot de passe" required style="width: 100%; margin-bottom: 1rem; padding: 10px;">
-            <button type="submit" style="width: 100%; padding: 10px; background: #00a896; color: white; border: none; cursor: pointer;">S'inscrire</button>
+            <input type="email" id="email" data-i18n-placeholder="auth.email_placeholder" placeholder="Email" required>
+            <input type="password" id="password" data-i18n-placeholder="auth.pass_placeholder" placeholder="Mot de passe" required>
+            <button type="submit" data-i18n="auth.signup_btn">S'inscrire</button>
         </form>
-        <p style="text-align: center; margin-top: 1rem;">Déjà un compte ? <a href="login.html">Se connecter</a></p>
+        <p style="margin-top: 1.5rem;"><span data-i18n="auth.has_account">Déjà un compte ?</span> <a href="login.html" data-i18n="auth.login_title">Se connecter</a></p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -24,9 +24,6 @@
         import "./assets/js/ui-orchestrator.js";
         import { auth } from './assets/js/auth-manager.js';
         
-
-        
-
         document.getElementById('signup-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
@@ -35,6 +32,21 @@
             if (error) alert(error.message);
             else alert("Vérifiez votre email pour confirmer l'inscription !");
         });
+
+        // Petite extension pour traduire les placeholders
+        const translatePlaceholders = async () => {
+            const lang = localStorage.getItem('posturaia_lang') || 'fr';
+            const response = await fetch(`i18n/${lang}.json`);
+            const t = await response.json();
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                const keys = key.split('.');
+                let text = t;
+                keys.forEach(k => text = text ? text[k] : null);
+                if (text) el.placeholder = text;
+            });
+        };
+        setTimeout(translatePlaceholders, 500);
     </script>
 </body>
 </html>

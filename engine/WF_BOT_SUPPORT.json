@@ -1,5 +1,5 @@
 {
-  "name": "WF_BOT_SUPPORT",
+  "name": "WF_BOT_SUPPORT_PROD",
   "nodes": [
     {
       "parameters": {
@@ -20,7 +20,7 @@
           "messageValues": [
             {
               "role": "system",
-              "content": "Tu es l'assistant IA de PosturaIA. Réponds de manière concise, clinique et professionnelle. Langue de réponse: {{ $json.body.lang || 'fr' }}. Si la question concerne la santé, rappelle que tu n'es pas un médecin."
+              "content": "Tu es l'assistant expert de PosturaIA. Ton ton est clinique, rassurant et professionnel.\n\nCONSIGNES :\n1. Langue : Réponds toujours en {{ $json.body.lang || 'fr' }}.\n2. Expertise : Tu es spécialisé en posture, ergonomie et biomécanique.\n3. Sécurité : Si l'utilisateur mentionne une douleur aiguë, recommande de consulter un médecin.\n4. Action : Encourage l'utilisateur à faire son bilan postural gratuit sur le site.\n5. Style : Phrases courtes, listes à puces si nécessaire."
             },
             {
               "role": "user",

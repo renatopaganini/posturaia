@@ -16,7 +16,7 @@
         </p>
         
         <div id="hero-actions">
-            <div style="padding: 20px; color: #999;">Initialisation du moteur...</div>
+            <div style="padding: 20px; color: #999;" data-i18n="common.loading">Initialisation du moteur...</div>
         </div>
 
         <section style="margin-top: 6rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; text-align: left;">
@@ -29,8 +29,8 @@
                 <p style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="home.feature_privacy_desc">Vos données de santé sont cryptées et traitées avec le plus haut niveau de confidentialité.</p>
             </div>
             <div class="card">
-                <h3 style="color: var(--secondary); margin-bottom: 1rem;">Multi-dispositif</h3>
-                <p style="font-size: 0.95rem; color: var(--text-muted);">Accédez à vos bilans partout, sur mobile, tablette ou ordinateur.</p>
+                <h3 style="color: var(--secondary); margin-bottom: 1rem;" data-i18n="home.feature_multi">Multi-dispositif</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="home.feature_multi_desc">Accédez à vos bilans partout, sur mobile, tablette ou ordinateur.</p>
             </div>
         </section>
     </main>
@@ -38,27 +38,35 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
         import { auth } from './assets/js/auth-manager.js';
-        import './assets/js/ui-orchestrator.js';
+        import { startUI } from './assets/js/ui-orchestrator.js';
 
         const actions = document.getElementById('hero-actions');
-        const updateUI = () => {
+        
+        const updateUI = async () => {
             const user = auth.getUser();
+            const lang = localStorage.getItem('posturaia_lang') || 'fr';
+            const response = await fetch(`i18n/${lang}.json`);
+            const t = await response.json();
+
             if (user) {
                 actions.innerHTML = `
                     <div style="background: var(--white); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow);">
-                        <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Ravi de vous revoir, <strong>${user.email}</strong></p>
-                        <a href="dashboard.html" class="btn btn-secondary" style="padding: 1rem 3rem;">Accéder à mon Dashboard</a>
+                        <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">${t.home.welcome_back} <strong>${user.email}</strong></p>
+                        <a href="dashboard.html" class="btn btn-secondary" style="padding: 1rem 3rem;">${t.dashboard.title}</a>
                     </div>
                 `;
             } else {
                 actions.innerHTML = `
-                    <a href="login.html" class="btn btn-primary" style="padding: 1.2rem 4rem; font-size: 1.1rem;" data-i18n="home.cta">Commencer mon bilan gratuit</a>
+                    <a href="login.html" class="btn btn-primary" style="padding: 1.2rem 4rem; font-size: 1.1rem;">${t.home.cta}</a>
                 `;
             }
         };
 
-        updateUI();
+        // On attend que l'UI soit prête pour avoir les traductions
         document.addEventListener('auth-state-changed', updateUI);
+        
+        // Initialisation manuelle au cas où
+        setTimeout(updateUI, 500);
     </script>
 </body>
 </html>
