@@ -19,5 +19,5 @@ jobs:
           password: ${{ secrets.INFOMANIAK_SFTP_PASS }}
           port: ${{ secrets.INFOMANIAK_SFTP_PORT }}
           local-dir: "./"
-          server-dir: ${{ secrets.INFOMANIAK_REMOTE_PATH }}
+          server-dir: ${{ secrets.INFOMANIAK_REMOTE_PATH }}/
 
