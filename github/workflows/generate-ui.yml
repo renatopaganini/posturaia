@@ -1,0 +1,67 @@
+name: Generate UI with OpenAI
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "What to generate (HTML snippet, section, page, etc.)"
+        required: true
+        type: string
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Call OpenAI Responses API and write file
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PROMPT: ${{ inputs.prompt }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          mkdir -p generated
+
+          RESPONSE=$(curl -s https://api.openai.com/v1/responses \
+            -H "Authorization: Bearer $OPENAI_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n --arg p \"$PROMPT\" '{
+              model: \"gpt-4o-mini\",
+              input: [
+                {
+                  role: \"user\",
+                  content: [
+                    {
+                      type: \"input_text\",
+                      text: (\"Generate clean, responsive HTML/CSS (no frameworks). Return ONLY the HTML. Request: \" + $p)
+                    }
+                  ]
+                }
+              ]
+            }')")
+
+          echo "$RESPONSE" | jq -r '.output[]?.content[]? | select(.text != null) | .text' > generated/hero.html || true
+
+      - name: Commit generated file (if changed)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add generated/hero.html
+          if ! git diff --cached --quiet; then
+            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+            git commit -m "Generate UI: hero.html (OpenAI)" || true
+            git push origin HEAD:main
+            echo "Pushed generated file to main"
+          else
+            echo "No changes to commit"
+          fi
