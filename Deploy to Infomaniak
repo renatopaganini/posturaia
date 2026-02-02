@@ -1,4 +1,4 @@
-name: Deploy to Infomaniak
+name: .github/workflows/DeployInfomaniak.yml
 
 on:
   push:
