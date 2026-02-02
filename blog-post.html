@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Article - PosturaIA</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+    <header id="main-header"></header>
+    <main style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+        <article id="post-content">
+            <div style="padding: 2rem; text-align: center; color: #999;">Chargement de l'article...</div>
+        </article>
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <a href="blog.html" class="btn btn-outline">← Retour au blog</a>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import "./assets/js/ui-orchestrator.js";
+        
+        
+
+        async function loadPost() {
+            const container = document.getElementById('post-content');
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+
+            try {
+                const response = await fetch('assets/blog/posts.json');
+                const posts = await response.json();
+                const post = posts.find(p => p.id === postId);
+
+                if (!post) {
+                    container.innerHTML = `<h1>Article non trouvé</h1>`;
+                    return;
+                }
+
+                document.title = `${post.title} - PosturaIA`;
+                container.innerHTML = `
+                    <img src="${post.hero_image}" alt="${post.title}" style="width: 100%; border-radius: 12px; margin-bottom: 2rem;">
+                    <h1 style="color: var(--primary); margin-bottom: 1rem;">${post.title}</h1>
+                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2rem;">Publié le ${new Date(post.published_at).toLocaleDateString()}</div>
+                    <div class="blog-body">${post.content_html}</div>
+                    <div style="background: #f1f5f9; padding: 1.5rem; border-radius: 8px; margin-top: 3rem; font-size: 0.85rem; color: var(--text-muted);">
+                        <strong>Avertissement médical :</strong> Cet article est un outil d'aide à la décision et ne remplace pas un diagnostic médical professionnel.
+                    </div>
+                `;
+            } catch (e) {
+                container.innerHTML = `<p>Erreur lors du chargement de l'article.</p>`;
+            }
+        }
+        loadPost();
+    </script>
+</body>
+</html>

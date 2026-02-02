@@ -1,0 +1,53 @@
+{
+  "name": "WF_BLOG_GENERATOR",
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [{"field": "hours", "interval": 12}] } },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "messages": {
+          "messageValues": [
+            {
+              "role": "system",
+              "content": "Génère un article de blog expert sur la posture. JSON: { \"title\": \"...\", \"excerpt\": \"...\", \"content\": \"...\", \"lang\": \"fr\" }"
+            }
+          ]
+        },
+        "options": { "responseFormat": "json_object" }
+      },
+      "name": "OpenAI Blog",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "blog_posts",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $json.message.content.title }}",
+            "excerpt": "={{ $json.message.content.excerpt }}",
+            "content": "={{ $json.message.content.content }}",
+            "lang": "={{ $json.message.content.lang }}"
+          }
+        }
+      },
+      "name": "Supabase Save",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [650, 300]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": { "main": [[{ "node": "OpenAI Blog", "type": "main", "index": 0 }]] },
+    "OpenAI Blog": { "main": [[{ "node": "Supabase Save", "type": "main", "index": 0 }]] }
+  }
+}

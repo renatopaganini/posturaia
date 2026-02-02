@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaire - PosturaIA</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+    <header id="main-header"></header>
+    <main style="max-width: 600px; margin: 2rem auto; padding: 1rem;">
+        <h1>Questionnaire d'Analyse</h1>
+        <div id="consent-box" style="background: #fff8e1; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #ffe082;">
+            <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+                <strong>Avertissement :</strong> PosturaIA est un outil d'aide à la décision basé sur l'IA. Il ne remplace en aucun cas un diagnostic médical professionnel.
+            </p>
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="checkbox" id="consent-check"> J'ai compris et j'accepte les conditions d'utilisation.
+            </label>
+        </div>
+
+        <form id="intake-form">
+            <label>Où ressentez-vous des douleurs ?</label><br>
+            <textarea id="pains" style="width: 100%; height: 100px; margin-top: 5px;" placeholder="Ex: Nuque, bas du dos..."></textarea><br><br>
+            <label>Quel est votre objectif ?</label><br>
+            <select id="goal" style="width: 100%; padding: 10px; margin-top: 5px;">
+                <option value="correction">Correction posturale</option>
+                <option value="douleur">Réduction des douleurs</option>
+                <option value="performance">Performance sportive</option>
+            </select><br><br>
+            <button type="submit" id="submit-btn" disabled style="width: 100%; padding: 15px; background: #ccc; color: white; border: none; cursor: not-allowed;">Continuer vers la capture</button>
+        </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import "./assets/js/ui-orchestrator.js";
+        import { auth } from './assets/js/auth-manager.js';
+        
+
+        await auth.checkAuth();
+        
+        
+        const consentCheck = document.getElementById('consent-check');
+        const submitBtn = document.getElementById('submit-btn');
+
+        consentCheck.addEventListener('change', () => {
+            submitBtn.disabled = !consentCheck.checked;
+            submitBtn.style.background = consentCheck.checked ? '#00a896' : '#ccc';
+            submitBtn.style.cursor = consentCheck.checked ? 'pointer' : 'not-allowed';
+        });
+
+        document.getElementById('intake-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = {
+                pains: document.getElementById('pains').value,
+                goal: document.getElementById('goal').value,
+                consented_at: new Date().toISOString()
+            };
+            localStorage.setItem('posturaia_intake', JSON.stringify(data));
+            window.location.href = 'capture.html';
+        });
+    </script>
+</body>
+</html>

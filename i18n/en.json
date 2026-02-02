@@ -1,0 +1,44 @@
+{
+    "nav": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "new_analysis": "New Analysis",
+        "blog": "Health Blog",
+        "login": "Login",
+        "signup": "Sign Up",
+        "logout": "Logout",
+        "legal_cgu": "Terms of Service",
+        "legal_privacy": "Privacy Policy",
+        "legal_about": "About Us"
+    },
+    "footer": {
+        "desc": "Excellence in postural analysis through clinical artificial intelligence.",
+        "nav_title": "Navigation",
+        "legal_title": "Legal",
+        "contact_title": "Contact",
+        "copy": "&copy; 2026 PosturaIA. All rights reserved. Decision support tool."
+    },
+    "auth": {
+        "login_title": "Login to your space",
+        "signup_title": "Create a clinical account",
+        "email_label": "Email Address",
+        "pass_label": "Password",
+        "google_btn": "Continue with Google",
+        "forgot_pass": "Forgot password?",
+        "no_account": "No account yet?",
+        "has_account": "Already registered?"
+    },
+    "dashboard": {
+        "welcome": "Welcome to your dashboard",
+        "empty_state": "No analysis performed yet.",
+        "start_btn": "Start my first assessment",
+        "history_title": "Analysis History"
+    },
+    "analysis": {
+        "intake_title": "Preliminary Questionnaire",
+        "consent_check": "I certify that I have read the medical warning.",
+        "start_capture": "Start capture",
+        "processing": "Biomechanical analysis in progress...",
+        "results_title": "Your Postural Assessment"
+    }
+}

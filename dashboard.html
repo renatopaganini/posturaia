@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PosturaIA</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+    <header id="main-header"></header>
+
+    <main style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Mes Analyses</h1>
+            <a href="intake.html" style="padding: 10px 25px; background: #00a896; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">Nouvelle Analyse</a>
+        </div>
+
+        <div id="analyses-list" style="background: white; border-radius: 12px; border: 1px solid #eee; overflow: hidden;">
+            <div style="padding: 2rem; text-align: center; color: #999;">Chargement de vos analyses...</div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import "./assets/js/ui-orchestrator.js";
+        import { auth } from './assets/js/auth-manager.js';
+        
+        import { getUserAnalyses } from './assets/js/analysis-pipeline.js';
+
+        await auth.checkAuth();
+        
+
+        async function loadDashboard() {
+            const listContainer = document.getElementById('analyses-list');
+            try {
+                const analyses = await getUserAnalyses();
+                if (analyses.length === 0) {
+                    listContainer.innerHTML = `<div style="padding: 3rem; text-align: center;">Vous n'avez pas encore d'analyse. <a href="intake.html">Commencez ici</a>.</div>`;
+                    return;
+                }
+
+                listContainer.innerHTML = analyses.map(a => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; border-bottom: 1px solid #f5f5f5;">
+                        <div>
+                            <div style="font-weight: bold; color: #004d66;">Analyse ${a.agent_code}</div>
+                            <div style="font-size: 0.85rem; color: #999;">${new Date(a.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 2rem;">
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.75rem; color: #999; text-transform: uppercase;">Score</div>
+                                <div style="font-weight: bold; color: #00a896;">${a.global_score || '--'}/100</div>
+                            </div>
+                            <a href="results.html?id=${a.id}" style="color: #004d66; text-decoration: none; font-weight: bold;">Voir →</a>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                listContainer.innerHTML = `<div style="padding: 2rem; color: red;">Erreur lors du chargement : ${e.message}</div>`;
+            }
+        }
+
+        loadDashboard();
+    </script>
+</body>
+</html>

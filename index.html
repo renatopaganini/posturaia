@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="nav.home">PosturaIA - Accueil</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+    <header id="main-header"></header>
+
+    <main style="max-width: 1000px; margin: 5rem auto; text-align: center; padding: 0 1rem;">
+        <h1 style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1rem;" data-i18n="common.logo">PosturaIA</h1>
+        <p style="font-size: 1.4rem; color: var(--text-muted); margin-bottom: 3rem;" data-i18n="home.subtitle">
+            L'excellence de l'analyse posturale par intelligence artificielle clinique.
+        </p>
+        
+        <div id="hero-actions">
+            <div style="padding: 20px; color: #999;">Initialisation du moteur...</div>
+        </div>
+
+        <section style="margin-top: 6rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; text-align: left;">
+            <div class="card">
+                <h3 style="color: var(--secondary); margin-bottom: 1rem;" data-i18n="home.feature_auth">Moteur Clinique</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="home.feature_auth_desc">Analyses biomécaniques précises basées sur des modèles cliniques validés.</p>
+            </div>
+            <div class="card">
+                <h3 style="color: var(--secondary); margin-bottom: 1rem;" data-i18n="home.feature_privacy">Sécurité RGPD</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted);" data-i18n="home.feature_privacy_desc">Vos données de santé sont cryptées et traitées avec le plus haut niveau de confidentialité.</p>
+            </div>
+            <div class="card">
+                <h3 style="color: var(--secondary); margin-bottom: 1rem;">Multi-dispositif</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted);">Accédez à vos bilans partout, sur mobile, tablette ou ordinateur.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { auth } from './assets/js/auth-manager.js';
+        import './assets/js/ui-orchestrator.js';
+
+        const actions = document.getElementById('hero-actions');
+        const updateUI = () => {
+            const user = auth.getUser();
+            if (user) {
+                actions.innerHTML = `
+                    <div style="background: var(--white); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow);">
+                        <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Ravi de vous revoir, <strong>${user.email}</strong></p>
+                        <a href="dashboard.html" class="btn btn-secondary" style="padding: 1rem 3rem;">Accéder à mon Dashboard</a>
+                    </div>
+                `;
+            } else {
+                actions.innerHTML = `
+                    <a href="login.html" class="btn btn-primary" style="padding: 1.2rem 4rem; font-size: 1.1rem;" data-i18n="home.cta">Commencer mon bilan gratuit</a>
+                `;
+            }
+        };
+
+        updateUI();
+        document.addEventListener('auth-state-changed', updateUI);
+    </script>
+</body>
+</html>

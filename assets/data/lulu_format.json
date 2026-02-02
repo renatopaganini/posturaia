@@ -1,0 +1,42 @@
+{
+  "analysis_metadata": {
+    "agent_id": "lulu_experte",
+    "version": "1.0",
+    "generated_at": "2026-02-01T12:00:00Z"
+  },
+  "scores": {
+    "global_score": 78,
+    "alignment_score": 82,
+    "symmetry_score": 74,
+    "stability_score": 80
+  },
+  "constats_posturaux": [
+    {
+      "zone": "Cervicale",
+      "observation": "Projection antérieure de la tête (Forward Head Posture).",
+      "severite": "Modérée"
+    },
+    {
+      "zone": "Épaules",
+      "observation": "Asymétrie de hauteur, épaule droite plus haute.",
+      "severite": "Légère"
+    }
+  ],
+  "hypotheses_posturales": [
+    "L'antéprojection cervicale pourrait être liée à un usage prolongé d'écrans non ergonomiques.",
+    "L'asymétrie scapulaire suggère une compensation musculaire unilatérale."
+  ],
+  "recommandations_personnalisees": [
+    "Ajuster la hauteur de l'écran principal au niveau des yeux.",
+    "Pratiquer des étirements des pectoraux 2 fois par jour."
+  ],
+  "points_de_vigilance": [
+    "Apparition possible de céphalées de tension si la posture cervicale n'est pas corrigée.",
+    "Surveiller toute douleur irradiant dans le bras droit."
+  ],
+  "plan_action_14_jours": {
+    "jours_1_7": "Focus sur la prise de conscience et l'ergonomie du poste de travail.",
+    "jours_8_14": "Introduction d'exercices de renforcement des fixateurs de l'omoplate."
+  },
+  "resume_final": "Bilan postural montrant des signes classiques de fatigue posturale numérique. Une correction ergonomique rapide et des exercices de mobilité ciblés devraient apporter une amélioration significative sous 14 jours."
+}

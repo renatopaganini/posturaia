@@ -1,0 +1,44 @@
+{
+    "nav": {
+        "home": "Accueil",
+        "dashboard": "Tableau de bord",
+        "new_analysis": "Nouvelle Analyse",
+        "blog": "Blog Santé",
+        "login": "Connexion",
+        "signup": "Inscription",
+        "logout": "Déconnexion",
+        "legal_cgu": "Conditions Générales",
+        "legal_privacy": "Confidentialité",
+        "legal_about": "À Propos"
+    },
+    "footer": {
+        "desc": "L'excellence de l'analyse posturale par l'intelligence artificielle clinique.",
+        "nav_title": "Navigation",
+        "legal_title": "Légal",
+        "contact_title": "Contact",
+        "copy": "&copy; 2026 PosturaIA. Tous droits réservés. Outil d'aide à la décision."
+    },
+    "auth": {
+        "login_title": "Connexion à votre espace",
+        "signup_title": "Créer un compte clinique",
+        "email_label": "Adresse Email",
+        "pass_label": "Mot de passe",
+        "google_btn": "Continuer avec Google",
+        "forgot_pass": "Mot de passe oublié ?",
+        "no_account": "Pas encore de compte ?",
+        "has_account": "Déjà inscrit ?"
+    },
+    "dashboard": {
+        "welcome": "Bienvenue sur votre dashboard",
+        "empty_state": "Aucune analyse effectuée.",
+        "start_btn": "Lancer mon premier bilan",
+        "history_title": "Historique des analyses"
+    },
+    "analysis": {
+        "intake_title": "Questionnaire Préliminaire",
+        "consent_check": "Je certifie avoir pris connaissance de l'avertissement médical.",
+        "start_capture": "Démarrer la capture",
+        "processing": "Analyse biomécanique en cours...",
+        "results_title": "Votre Bilan Postural"
+    }
+}

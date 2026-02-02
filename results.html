@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats - PosturaIA</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+    <header id="main-header"></header>
+    <main style="max-width: 800px; margin: 2rem auto; padding: 1rem;">
+        <h1>Vos Résultats d'Analyse</h1>
+        <div id="result-content" style="background: #f9f9f9; padding: 2rem; border-radius: 10px; border: 1px solid #eee; min-height: 200px;">
+            <div style="text-align: center; color: #999; padding: 2rem;">Chargement des résultats depuis la base de données...</div>
+        </div>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <button onclick="window.print()" style="flex: 1; padding: 15px; background: #004d66; color: white; border: none; cursor: pointer;">Exporter en PDF</button>
+            <a href="dashboard.html" style="flex: 1; padding: 15px; background: #00a896; color: white; border: none; cursor: pointer; text-decoration: none; text-align: center;">Retour au Dashboard</a>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import "./assets/js/ui-orchestrator.js";
+        import { auth } from './assets/js/auth-manager.js';
+        
+        import { getAnalysisById } from './assets/js/analysis-pipeline.js';
+
+        await auth.checkAuth();
+        
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const analysisId = urlParams.get('id');
+
+        async function loadResults() {
+            const container = document.getElementById('result-content');
+            if (!analysisId) {
+                container.innerHTML = `<div style="color: red; text-align: center; padding: 2rem;">ID d'analyse manquant.</div>`;
+                return;
+            }
+
+            try {
+                const record = await getAnalysisById(analysisId);
+                const data = record.output_json;
+                container.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2>Score Global : ${data.scores.global_score}/100</h2>
+                        <span style="font-size: 0.8rem; color: #999;">ID: ${record.id}</span>
+                    </div>
+                    <h3>Constats :</h3>
+                    <ul>${data.constats_posturaux.map(c => `<li><strong>${c.zone}</strong>: ${c.observation} (${c.severite})</li>`).join('')}</ul>
+                    <h3>Recommandations :</h3>
+                    <p>${data.recommandations_personnalisees.join(', ')}</p>
+                    <h3>Plan d'action (14 jours) :</h3>
+                    <ul>
+                        <li><strong>Jours 1-7:</strong> ${data.plan_action_14_jours.jours_1_7}</li>
+                        <li><strong>Jours 8-14:</strong> ${data.plan_action_14_jours.jours_8_14}</li>
+                    </ul>
+                    <p style="font-style: italic; margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1rem; color: #666;">
+                        <strong>Résumé Final :</strong> ${data.resume_final}
+                    </p>
+                `;
+            } catch (e) {
+                container.innerHTML = `<div style="color: red; text-align: center; padding: 2rem;">Erreur lors du chargement des résultats : ${e.message}</div>`;
+            }
+        }
+
+        loadResults();
+    </script>
+</body>
+</html>

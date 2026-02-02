@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Légal - PosturaIA</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+    <header id="main-header"></header>
+    <main style="max-width: 800px; margin: 4rem auto; padding: 0 1rem; min-height: 60vh;">
+        <div id="legal-content" class="card" style="padding: 3rem; line-height: 1.8;">
+            <h1 id="legal-title" style="color: var(--primary); margin-bottom: 2rem;">Chargement...</h1>
+            <div id="legal-body" style="color: var(--text-dark);">Veuillez patienter...</div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import "./assets/js/ui-orchestrator.js";
+        
+        
+
+        
+        
+
+        async function loadLegal() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page') || 'cgu';
+            const lang = localStorage.getItem('posturaia_lang') || 'fr';
+
+            try {
+                const response = await fetch('assets/data/legal_contents.json');
+                const data = await response.json();
+                const content = data[lang][page];
+
+                document.getElementById('legal-title').innerText = content.title;
+                document.getElementById('legal-body').innerText = content.content;
+                document.title = `${content.title} - PosturaIA`;
+            } catch (e) {
+                document.getElementById('legal-body').innerText = "Erreur de chargement du contenu.";
+            }
+        }
+        loadLegal();
+    </script>
+</body>
+</html>

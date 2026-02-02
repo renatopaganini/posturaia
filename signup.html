@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - PosturaIA</title>
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+    <header id="main-header"></header>
+
+    <div class="auth-card" style="max-width: 400px; margin: 5rem auto; padding: 2rem; border: 1px solid #eee; border-radius: 10px;">
+        <h1>Inscription</h1>
+        <form id="signup-form">
+            <input type="email" id="email" placeholder="Email" required style="width: 100%; margin-bottom: 1rem; padding: 10px;">
+            <input type="password" id="password" placeholder="Mot de passe" required style="width: 100%; margin-bottom: 1rem; padding: 10px;">
+            <button type="submit" style="width: 100%; padding: 10px; background: #00a896; color: white; border: none; cursor: pointer;">S'inscrire</button>
+        </form>
+        <p style="text-align: center; margin-top: 1rem;">Déjà un compte ? <a href="login.html">Se connecter</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import "./assets/js/ui-orchestrator.js";
+        import { auth } from './assets/js/auth-manager.js';
+        
+
+        
+
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const { error } = await auth.signUp(email, password);
+            if (error) alert(error.message);
+            else alert("Vérifiez votre email pour confirmer l'inscription !");
+        });
+    </script>
+</body>
+</html>

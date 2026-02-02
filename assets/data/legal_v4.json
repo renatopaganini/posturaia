@@ -1,0 +1,44 @@
+{
+    "fr": {
+        "faq": {
+            "title": "Foire Aux Questions",
+            "sections": [
+                { "q": "Qu'est-ce que PosturaIA ?", "a": "PosturaIA est une solution d'analyse posturale avancée utilisant l'intelligence artificielle pour évaluer la biomécanique corporelle." },
+                { "q": "Est-ce un diagnostic médical ?", "a": "Non. PosturaIA est un outil d'aide à la décision. Il ne remplace pas l'avis d'un médecin ou d'un kinésithérapeute." }
+            ]
+        },
+        "cgu": {
+            "title": "Conditions Générales d'Utilisation",
+            "content": "L'utilisation de PosturaIA implique l'acceptation pleine et entière des présentes CGU. L'outil est fourni à titre informatif. PosturaIA décline toute responsabilité en cas de mauvaise interprétation des résultats sans avis médical."
+        },
+        "privacy": {
+            "title": "Politique de Confidentialité",
+            "content": "Vos données de santé sont protégées selon les normes RGPD. Les images sont traitées localement en mémoire et ne sont pas stockées sur nos serveurs après analyse."
+        },
+        "about": {
+            "title": "À Propos",
+            "content": "PosturaIA est né de la volonté de rendre l'analyse posturale de précision accessible à tous, en combinant expertise clinique et innovation technologique."
+        }
+    },
+    "en": {
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "sections": [
+                { "q": "What is PosturaIA?", "a": "PosturaIA is an advanced postural analysis solution using AI to evaluate body biomechanics." },
+                { "q": "Is it a medical diagnosis?", "a": "No. PosturaIA is a decision support tool. It does not replace the advice of a doctor or physical therapist." }
+            ]
+        },
+        "cgu": {
+            "title": "Terms of Service",
+            "content": "Using PosturaIA implies full acceptance of these Terms. The tool is provided for informational purposes. PosturaIA disclaims all liability for misinterpretation of results without medical advice."
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "content": "Your health data is protected under GDPR standards. Images are processed locally in memory and are not stored on our servers after analysis."
+        },
+        "about": {
+            "title": "About Us",
+            "content": "PosturaIA was born from the desire to make precision postural analysis accessible to everyone, combining clinical expertise and technological innovation."
+        }
+    }
+}

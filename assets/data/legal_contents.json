@@ -1,0 +1,30 @@
+{
+    "fr": {
+        "cgu": {
+            "title": "Conditions Générales d'Utilisation",
+            "content": "PosturaIA est un outil d'aide à la décision basé sur l'intelligence artificielle. Il ne constitue pas un diagnostic médical. L'utilisateur reconnaît que les résultats sont fournis à titre informatif et ne remplacent pas une consultation avec un professionnel de santé qualifié."
+        },
+        "privacy": {
+            "title": "Politique de Confidentialité",
+            "content": "Conformément au RGPD, PosturaIA s'engage à protéger vos données de santé. Les images analysées sont traitées en mémoire et ne sont pas stockées de manière permanente sur nos serveurs. Vos données sont cryptées et accessibles uniquement par vous."
+        },
+        "about": {
+            "title": "À Propos de PosturaIA",
+            "content": "PosturaIA allie biomécanique avancée et intelligence artificielle pour offrir une analyse posturale de précision clinique. Notre mission est de démocratiser l'accès à la prévention posturale pour les patients et les professionnels."
+        }
+    },
+    "en": {
+        "cgu": {
+            "title": "Terms of Use",
+            "content": "PosturaIA is an AI-powered decision support tool. It does not constitute a medical diagnosis. The user acknowledges that results are provided for informational purposes and do not replace a consultation with a qualified health professional."
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "content": "In compliance with GDPR, PosturaIA is committed to protecting your health data. Analyzed images are processed in memory and are not permanently stored on our servers. Your data is encrypted and accessible only by you."
+        },
+        "about": {
+            "title": "About PosturaIA",
+            "content": "PosturaIA combines advanced biomechanics and artificial intelligence to provide clinical-grade postural analysis. Our mission is to democratize access to postural prevention for patients and professionals."
+        }
+    }
+}

@@ -1,0 +1,130 @@
+/* PosturaIA - Thème Clinique Premium (V4) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary: #004d66; /* Deep Ocean */
+    --secondary: #00a896; /* Mint Clinique */
+    --accent: #007d71;
+    --bg-light: #f8fafb;
+    --white: #ffffff;
+    --text-dark: #1a2b33;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Header & Nav */
+header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo { font-weight: 700; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
+
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+.nav-links a:hover { color: var(--secondary); }
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary { background: var(--primary); color: var(--white); }
+.btn-primary:hover { background: #003a4d; box-shadow: 0 0 15px rgba(0, 77, 102, 0.3); }
+
+.btn-secondary { background: var(--secondary); color: var(--white); }
+.btn-secondary:hover { background: var(--accent); box-shadow: 0 0 15px rgba(0, 168, 150, 0.3); }
+
+.btn-outline { border: 1px solid var(--border); background: transparent; color: var(--text-dark); }
+.btn-outline:hover { background: var(--bg-light); }
+
+/* Cards */
+.card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+/* Forms */
+.auth-card {
+    max-width: 400px;
+    margin: 5rem auto;
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+input:focus { border-color: var(--secondary); outline: none; box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.1); }
+
+/* Dashboard List */
+.analysis-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+}
+.analysis-item:hover { background: #f1f5f9; }
+
+/* Bot Widget */
+#bot-launcher {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 77, 102, 0.4);
+    z-index: 2000;
+}
