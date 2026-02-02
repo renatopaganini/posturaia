@@ -27,7 +27,6 @@
         body: JSON.stringify({ text: message }),
       });
 
-      // Certaines configs renvoient texte direct au lieu de JSON
       const text = await res.text();
       let data;
       try {
@@ -36,13 +35,20 @@
         return text || "Désolé, je n’ai pas compris.";
       }
 
-      return (
-        data.output ??
-        data.text ??
-        data.result ??
-        data.response ??
-        (typeof data === "string" ? data : JSON.stringify(data))
-      );
+      // Extraction robuste du message
+      let output = 
+        data.output ?? 
+        data.text ?? 
+        data.result ?? 
+        data.response ?? 
+        (Array.isArray(data) && data.length > 0 ? (data[0].output ?? data[0].text ?? data[0]) : data);
+
+      // Si l'output est encore un objet vide ou non défini
+      if (!output || (typeof output === 'object' && Object.keys(output).length === 0)) {
+          return "Bonjour ! Comment puis-je vous aider aujourd'hui ?";
+      }
+
+      return typeof output === "string" ? output : JSON.stringify(output);
     } catch (e) {
       console.error("Bot error:", e);
       return "Désolé, le bot est momentanément indisponible. Réessayez dans un instant.";
