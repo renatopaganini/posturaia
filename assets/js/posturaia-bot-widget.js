@@ -24,7 +24,8 @@
       const res = await fetch(BOT_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: message }),
+        // n8n workflow attend 'message' dans le body
+        body: JSON.stringify({ message: message }),
       });
 
       const text = await res.text();
@@ -35,17 +36,18 @@
         return text || "Désolé, je n’ai pas compris.";
       }
 
-      // Extraction robuste du message
+      // Extraction robuste du message selon les formats n8n courants
       let output = 
         data.output ?? 
         data.text ?? 
+        data.message ??
         data.result ?? 
         data.response ?? 
-        (Array.isArray(data) && data.length > 0 ? (data[0].output ?? data[0].text ?? data[0]) : data);
+        (Array.isArray(data) && data.length > 0 ? (data[0].output ?? data[0].text ?? data[0].message ?? data[0]) : data);
 
       // Si l'output est encore un objet vide ou non défini
       if (!output || (typeof output === 'object' && Object.keys(output).length === 0)) {
-          return "Bonjour ! Comment puis-je vous aider aujourd'hui ?";
+          return "Bonjour ! Je suis l'assistant PosturaIA. Comment puis-je vous aider aujourd'hui ?";
       }
 
       return typeof output === "string" ? output : JSON.stringify(output);
