@@ -1,4 +1,4 @@
-name: .github/workflows/DeployInfomaniak.yml
+name: Deploy to Infomaniak
 
 on:
   push:
@@ -14,11 +14,12 @@ jobs:
       - name: Deploy via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          port: ${{ secrets.FTP_PORT }}
+          server: ${{ secrets.INFOMANIAK_SFTP_HOST }}
+          username: ${{ secrets.INFOMANIAK_SFTP_USER }}
+          password: ${{ secrets.INFOMANIAK_SFTP_PASS }}
+          port: ${{ secrets.INFOMANIAK_SFTP_PORT }}
           local_path: "./*"
-          remote_path: ${{ secrets.FTP_PATH }}
+          remote_path: ${{ secrets.INFOMANIAK_REMOTE_PATH }}
           sftp_only: true
           delete_remote_files: false
+
