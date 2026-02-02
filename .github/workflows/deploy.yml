@@ -11,15 +11,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.INFOMANIAK_SFTP_HOST }}
           username: ${{ secrets.INFOMANIAK_SFTP_USER }}
           password: ${{ secrets.INFOMANIAK_SFTP_PASS }}
           port: ${{ secrets.INFOMANIAK_SFTP_PORT }}
-          local_path: "./*"
-          remote_path: ${{ secrets.INFOMANIAK_REMOTE_PATH }}
-          sftp_only: true
-          delete_remote_files: false
+          local-dir: "./"
+          server-dir: ${{ secrets.INFOMANIAK_REMOTE_PATH }}
 
